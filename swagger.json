@@ -1,0 +1,869 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Meal Planner API",
+    "version": "1.0.0",
+    "description": "Dokumentacja API do aplikacji planowania posiłków",
+    "contact": {
+      "name": "MH"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Serwer lokalny"
+    }
+  ],
+  "paths": {
+    "/favorites": {
+      "post": {
+        "summary": "Dodaj przepis do ulubionych",
+        "tags": [
+          "Favorites"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user_id": {
+                    "type": "integer"
+                  },
+                  "recipe_id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Dodano do ulubionych"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Usuń przepis z ulubionych",
+        "tags": [
+          "Favorites"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user_id": {
+                    "type": "integer"
+                  },
+                  "recipe_id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Usunięto z ulubionych"
+          }
+        }
+      }
+    },
+    "/favorites/{user_id}": {
+      "get": {
+        "summary": "Pobierz ulubione przepisy użytkownika",
+        "tags": [
+          "Favorites"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID użytkownika"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista ulubionych"
+          }
+        }
+      }
+    },
+    "/fridge": {
+      "post": {
+        "summary": "Dodaj składnik do lodówki",
+        "tags": [
+          "Fridge"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user_id": {
+                    "type": "integer"
+                  },
+                  "ingredient_id": {
+                    "type": "integer"
+                  },
+                  "quantity": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Dodano składnik"
+          }
+        }
+      },
+      "put": {
+        "summary": "Aktualizacja ilości składnika",
+        "tags": [
+          "Fridge"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user_id": {
+                    "type": "integer"
+                  },
+                  "ingredient_id": {
+                    "type": "integer"
+                  },
+                  "quantity": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Zaktualizowano ilość"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Usuń składnik z lodówki",
+        "tags": [
+          "Fridge"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user_id": {
+                    "type": "integer"
+                  },
+                  "ingredient_id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Usunięto składnik"
+          }
+        }
+      }
+    },
+    "/fridge/{user_id}": {
+      "get": {
+        "summary": "Lista składników użytkownika",
+        "tags": [
+          "Fridge"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID użytkownika"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Zawartość lodówki"
+          }
+        }
+      }
+    },
+    "/ingredients": {
+      "post": {
+        "summary": "Utwórz nowy składnik",
+        "tags": [
+          "Ingredients"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "calories": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Utworzono składnik"
+          }
+        }
+      },
+      "get": {
+        "summary": "Pobierz wszystkie składniki",
+        "tags": [
+          "Ingredients"
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista składników"
+          }
+        }
+      }
+    },
+    "/meal_plan_recipes": {
+      "post": {
+        "summary": "Dodaj przepis do planu",
+        "tags": [
+          "MealPlanRecipes"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "plan_id": {
+                    "type": "integer"
+                  },
+                  "recipe_id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Dodano przepis do planu"
+          }
+        }
+      }
+    },
+    "/meal_plan_recipes/{plan_id}": {
+      "get": {
+        "summary": "Pobierz przepisy dla danego planu",
+        "tags": [
+          "MealPlanRecipes"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "plan_id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID planu posiłków"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista przepisów w planie"
+          }
+        }
+      }
+    },
+    "/meal_plans": {
+      "post": {
+        "summary": "Utwórz nowy plan posiłków",
+        "tags": [
+          "MealPlans"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user_id": {
+                    "type": "integer"
+                  },
+                  "plan_date": {
+                    "type": "string",
+                    "format": "date"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Utworzono plan"
+          }
+        }
+      }
+    },
+    "/meal_plans/{user_id}": {
+      "get": {
+        "summary": "Pobierz plany posiłków użytkownika",
+        "tags": [
+          "MealPlans"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID użytkownika"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista planów"
+          }
+        }
+      }
+    },
+    "/recipe_ingredients": {
+      "post": {
+        "summary": "Przypisz składnik do przepisu",
+        "tags": [
+          "RecipeIngredients"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "recipe_id": {
+                    "type": "integer"
+                  },
+                  "ingredient_id": {
+                    "type": "integer"
+                  },
+                  "amount": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Dodano składnik do przepisu"
+          }
+        }
+      }
+    },
+    "/recipe_ingredients/{recipe_id}": {
+      "get": {
+        "summary": "Pobierz składniki danego przepisu",
+        "tags": [
+          "RecipeIngredients"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "recipe_id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID przepisu"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista składników przepisu"
+          }
+        }
+      }
+    },
+    "/recipes": {
+      "post": {
+        "summary": "Utwórz nowy przepis",
+        "tags": [
+          "Recipes"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "user_id": {
+                    "type": "integer"
+                  },
+                  "category": {
+                    "type": "enum"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Przepis utworzony"
+          }
+        }
+      },
+      "get": {
+        "summary": "Pobierz wszystkie przepisy",
+        "tags": [
+          "Recipes"
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista przepisów"
+          }
+        }
+      }
+    },
+    "/shopping_items": {
+      "post": {
+        "summary": "Dodaj pozycję do listy zakupów",
+        "tags": [
+          "ShoppingItems"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "list_id": {
+                    "type": "integer"
+                  },
+                  "ingredient_id": {
+                    "type": "integer"
+                  },
+                  "amount": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Dodano pozycję"
+          }
+        }
+      }
+    },
+    "/shopping_items/{list_id}": {
+      "get": {
+        "summary": "Pobierz elementy z konkretnej listy zakupów",
+        "tags": [
+          "ShoppingItems"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "list_id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID listy zakupów"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Elementy listy"
+          }
+        }
+      }
+    },
+    "/shopping_lists": {
+      "post": {
+        "summary": "Utwórz nową listę zakupów",
+        "tags": [
+          "ShoppingLists"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user_id": {
+                    "type": "integer"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Utworzono listę"
+          }
+        }
+      }
+    },
+    "/shopping_lists/{user_id}": {
+      "get": {
+        "summary": "Pobierz listy zakupów użytkownika",
+        "tags": [
+          "ShoppingLists"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID użytkownika"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Listy zakupów"
+          }
+        }
+      }
+    },
+    "/transactions/meal_plan": {
+      "post": {
+        "summary": "T1 - Utwórz plan posiłków wraz z listą zakupów",
+        "tags": [
+          "Transactions"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user_id": {
+                    "type": "integer"
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "recipes": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transakcja zakończona sukcesem"
+          }
+        }
+      }
+    },
+    "/transactions/recipe/{recipe_id}": {
+      "delete": {
+        "summary": "T2 - Usuń przepis i posprzątaj powiązania",
+        "tags": [
+          "Transactions"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "recipe_id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Przepis usunięty bezpiecznie"
+          }
+        }
+      }
+    },
+    "/transactions/recipe/{recipe_id}/ingredients": {
+      "put": {
+        "summary": "T3 - Zaktualizuj składniki przepisu (transakcja)",
+        "tags": [
+          "Transactions"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "recipe_id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ingredients": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "ingredient_id": {
+                          "type": "integer"
+                        },
+                        "amount": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Składniki zaktualizowane"
+          }
+        }
+      }
+    },
+    "/transactions/fridge/update-after-meal": {
+      "put": {
+        "summary": "T4 - Zaktualizuj stan lodówki po ugotowaniu posiłku",
+        "tags": [
+          "Transactions"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user_id": {
+                    "type": "integer"
+                  },
+                  "recipe_id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Stan lodówki zaktualizowany"
+          }
+        }
+      }
+    },
+    "/users": {
+      "post": {
+        "summary": "Utwórz nowego użytkownika",
+        "tags": [
+          "Users"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Użytkownik utworzony"
+          }
+        }
+      },
+      "get": {
+        "summary": "Pobierz wszystkich użytkowników",
+        "tags": [
+          "Users"
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista użytkowników"
+          }
+        }
+      }
+    },
+    "/users/{user_id}": {
+      "put": {
+        "summary": "Zaktualizuj dane użytkownika",
+        "tags": [
+          "Users"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID użytkownika"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Dane zaktualizowane"
+          }
+        }
+      }
+    }
+  },
+  "components": {},
+  "tags": [
+    {
+      "name": "Favorites",
+      "description": "Zarządzanie ulubionymi przepisami"
+    },
+    {
+      "name": "Fridge",
+      "description": "Zarządzanie lodówką"
+    },
+    {
+      "name": "Ingredients",
+      "description": "Baza składników"
+    },
+    {
+      "name": "MealPlanRecipes",
+      "description": "Przepisy w planach posiłków"
+    },
+    {
+      "name": "MealPlans",
+      "description": "Zarządzanie planami posiłków"
+    },
+    {
+      "name": "RecipeIngredients",
+      "description": "Składniki w przepisach"
+    },
+    {
+      "name": "Recipes",
+      "description": "Zarządzanie przepisami"
+    },
+    {
+      "name": "ShoppingItems",
+      "description": "Pozycje na liście zakupów"
+    },
+    {
+      "name": "ShoppingLists",
+      "description": "Zarządzanie listami zakupów"
+    },
+    {
+      "name": "Transactions",
+      "description": "Operacje złożone (transakcyjne)"
+    },
+    {
+      "name": "Users",
+      "description": "Zarządzanie użytkownikami"
+    }
+  ]
+}
