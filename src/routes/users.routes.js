@@ -76,4 +76,8 @@ router.get('/', usersController.getAllUsers);
  */
 router.put('/:user_id', usersController.updateUser);
 
+router.put('/:user_id/password', usersController.changePassword);
+
+router.delete('/:user_id', usersController.deleteUser);
+
 module.exports = router;

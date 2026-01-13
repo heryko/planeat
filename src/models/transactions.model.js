@@ -4,7 +4,7 @@ const Transactions = {
 
   // T1: Utworzenie dnia i listy zakupów
   createMealPlanWithShoppingList: async (userId, planData, recipes, callback) => {
-    const connection = await mysql.getConnection();
+    const connection = await mysql.promise().getConnection();
     try {
       await connection.beginTransaction();
 
@@ -56,7 +56,7 @@ const Transactions = {
 
   // T2: Usunięcie przepisu z zachowaniem spójności
   deleteRecipeWithRelations: async (recipeId, callback) => {
-   const connection = await mysql.getConnection();
+   const connection = await mysql.promise().getConnection();
     try {
       await connection.beginTransaction();
 
@@ -77,7 +77,7 @@ const Transactions = {
 
   // T3: Aktualizacja przepisu (składników)
   updateRecipeIngredients: async (recipeId, newIngredients, callback) => {
-    const connection = await mysql.getConnection();
+    const connection = await mysql.promise().getConnection();
     try {
       await connection.beginTransaction();
 
@@ -102,7 +102,7 @@ const Transactions = {
 
   // T4: Aktualizacja lodówki (Fridge)
   updateFridgeAfterMeal: async (userId, recipeId, callback) => {
-   const connection = await mysql.getConnection();
+   const connection = await mysql.promise().getConnection();
     try {
       await connection.beginTransaction();
 

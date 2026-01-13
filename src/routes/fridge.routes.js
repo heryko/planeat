@@ -101,4 +101,6 @@ router.put('/', fridgeController.updateQuantity);
  */
 router.delete('/', fridgeController.removeItem);
 
+router.delete('/:fridge_id', fridgeController.removeItemById);
+
 module.exports = router;

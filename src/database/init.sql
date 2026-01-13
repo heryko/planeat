@@ -21,7 +21,7 @@ SET @@SESSION.SQL_LOG_BIN= 0;
 -- GTID state at the beginning of the backup 
 --
 
-SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ 'a2f3b464-c2da-11f0-b0f3-bcfce753d07e:1-181';
+-- SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ 'a2f3b464-c2da-11f0-b0f3-bcfce753d07e:1-181';
 
 --
 -- Table structure for table `favorites`
@@ -31,8 +31,9 @@ DROP TABLE IF EXISTS `favorites`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `favorites` (
-  `user_id` int DEFAULT NULL,
-  `recipe_id` int DEFAULT NULL,
+  `user_id` int NOT NULL,
+  `recipe_id` int NOT NULL,
+  PRIMARY KEY (`user_id`,`recipe_id`),
   KEY `fk_favorites-users_idx` (`user_id`),
   KEY `fk_favorites-recipes_idx` (`recipe_id`),
   CONSTRAINT `fk_favorites-recipes` FOREIGN KEY (`recipe_id`) REFERENCES `recipes` (`recipe_id`),
@@ -267,6 +268,7 @@ CREATE TABLE `shopping_lists` (
   `list_id` int NOT NULL AUTO_INCREMENT,
   `user_id` int DEFAULT NULL,
   `plan_id` int DEFAULT NULL,
+  `name` varchar(100) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   PRIMARY KEY (`list_id`),
   KEY `fk_shopping_lists-users_idx` (`user_id`),
@@ -282,7 +284,7 @@ CREATE TABLE `shopping_lists` (
 
 LOCK TABLES `shopping_lists` WRITE;
 /*!40000 ALTER TABLE `shopping_lists` DISABLE KEYS */;
-INSERT INTO `shopping_lists` VALUES (1,1,1,'2025-12-16 16:49:48'),(2,2,2,'2025-12-16 16:49:55'),(3,1,7,'2025-12-16 17:40:44');
+INSERT INTO `shopping_lists` (`list_id`,`user_id`,`plan_id`,`name`,`created_at`) VALUES (1,1,1,'Lista do planu 1','2025-12-16 16:49:48'),(2,2,2,'Lista do planu 2','2025-12-16 16:49:55'),(3,1,7,'Lista do planu 7','2025-12-16 17:40:44');
 /*!40000 ALTER TABLE `shopping_lists` ENABLE KEYS */;
 UNLOCK TABLES;
 

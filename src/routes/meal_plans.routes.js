@@ -33,6 +33,29 @@ const mealPlanController = require('../controllers/meal_plans.controller');
  */
 router.post('/', mealPlanController.createMealPlan);
 
+router.put('/:plan_id', mealPlanController.updateMealPlan);
+
+/**
+ * @swagger
+ * /meal_plans/{plan_id}:
+ *   delete:
+ *     summary: Usuń plan posiłków (dla jednego dnia)
+ *     tags: [MealPlans]
+ *     parameters:
+ *       - in: path
+ *         name: plan_id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID planu
+ *     responses:
+ *       200:
+ *         description: Usunięto plan
+ *       404:
+ *         description: Plan nie istnieje
+ */
+router.delete('/:plan_id', mealPlanController.deleteMealPlan);
+
 /**
  * @swagger
  * /meal_plans/{user_id}:

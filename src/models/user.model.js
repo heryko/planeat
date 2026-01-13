@@ -25,6 +25,21 @@ const User = {
   getAll: (callback) => {
     const sql = 'SELECT * FROM users';
     mysql.query(sql, callback);
+  },
+
+  getById: (userId, callback) => {
+    const sql = 'SELECT * FROM users WHERE user_id = ?';
+    mysql.query(sql, [userId], callback);
+  },
+
+  updatePassword: (userId, passwordHash, callback) => {
+    const sql = 'UPDATE users SET password_hash = ? WHERE user_id = ?';
+    mysql.query(sql, [passwordHash, userId], callback);
+  },
+
+  remove: (userId, callback) => {
+    const sql = 'DELETE FROM users WHERE user_id = ?';
+    mysql.query(sql, [userId], callback);
   }
 };
 

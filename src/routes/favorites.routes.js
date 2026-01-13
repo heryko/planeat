@@ -74,4 +74,6 @@ router.get('/:user_id', favoritesController.getFavorites);
  */
 router.delete('/', favoritesController.removeFavorite);
 
+router.delete('/:user_id/:recipe_id', favoritesController.removeFavoriteByIds);
+
 module.exports = router;

@@ -8,6 +8,10 @@ const ShoppingItem = {
 
   getByList: (listId, callback) => {
     mysql.query('SELECT * FROM shopping_items WHERE list_id = ?', [listId], callback);
+  },
+
+  remove: (itemId, callback) => {
+    mysql.query('DELETE FROM shopping_items WHERE si_id = ?', [itemId], callback);
   }
 };
 

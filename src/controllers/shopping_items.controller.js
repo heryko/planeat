@@ -18,3 +18,11 @@ exports.getItemsByList = (req, res) => {
     res.json(results);
   });
 };
+
+exports.removeItem = (req, res) => {
+  const itemId = req.params.item_id;
+  ShoppingItem.remove(itemId, (err, result) => {
+    if (err) return res.status(500).json({ message: err.message });
+    res.json({ message: 'Usunięto pozycję z listy zakupów' });
+  });
+};

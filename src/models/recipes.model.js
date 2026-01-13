@@ -4,8 +4,8 @@ const Recipe = {
   create: (data, callback) => {
     const createdAt = new Date();
     mysql.query(
-      'INSERT INTO recipes (recipe_id, user_id, title, category, description, created_at) VALUES (?, ?, ?, ?, ?, ?)',
-      [data.recipe_id, data.user_id, data.title, data.category, data.description, createdAt],
+      'INSERT INTO recipes (user_id, title, category, description, created_at) VALUES (?, ?, ?, ?, ?)',
+      [data.user_id, data.title, data.category, data.description, createdAt],
       callback
     );
   },

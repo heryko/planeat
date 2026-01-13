@@ -11,7 +11,7 @@ const shoppingListController = require('../controllers/shopping_list.controller'
 
 /**
  * @swagger
- * /shopping_lists:
+ * /shopping_list:
  *   post:
  *     summary: Utwórz nową listę zakupów
  *     tags: [ShoppingLists]
@@ -34,7 +34,7 @@ router.post('/', shoppingListController.createShoppingList);
 
 /**
  * @swagger
- * /shopping_lists/{user_id}:
+ * /shopping_list/{user_id}:
  *   get:
  *     summary: Pobierz listy zakupów użytkownika
  *     tags: [ShoppingLists]
@@ -50,5 +50,26 @@ router.post('/', shoppingListController.createShoppingList);
  *         description: Listy zakupów
  */
 router.get('/:user_id', shoppingListController.getShoppingListsByUser);
+
+/**
+ * @swagger
+ * /shopping_list/{list_id}:
+ *   delete:
+ *     summary: Usuń listę zakupów (wraz z pozycjami)
+ *     tags: [ShoppingLists]
+ *     parameters:
+ *       - in: path
+ *         name: list_id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID listy zakupów
+ *     responses:
+ *       200:
+ *         description: Lista usunięta
+ *       404:
+ *         description: Lista nie istnieje
+ */
+router.delete('/:list_id', shoppingListController.deleteShoppingList);
 
 module.exports = router;

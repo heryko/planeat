@@ -53,4 +53,6 @@ router.post('/', shoppingItemController.addItemToList);
  */
 router.get('/:list_id', shoppingItemController.getItemsByList);
 
+router.delete('/:item_id', shoppingItemController.removeItem);
+
 module.exports = router;

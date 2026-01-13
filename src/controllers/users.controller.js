@@ -39,3 +39,50 @@ exports.getAllUsers = (req, res) => {
     res.json(results);
   });
 };
+
+exports.deleteUser = (req, res) => {
+  const userId = req.params.user_id;
+  User.remove(userId, (err, result) => {
+    if (err) return res.status(500).json({ message: err.message });
+    res.json({ message: 'Użytkownik usunięty' });
+  });
+};
+
+exports.changePassword = (req, res) => {
+  const userId = req.params.user_id;
+  const { currentPassword, newPassword } = req.body;
+
+  if (!currentPassword || !newPassword) {
+    return res.status(400).json({ message: 'currentPassword i newPassword są wymagane' });
+  }
+
+  User.getById(userId, async (err, results) => {
+    if (err) return res.status(500).json({ message: err.message });
+    const user = results && results[0];
+    if (!user) return res.status(404).json({ message: 'Użytkownik nie znaleziony' });
+
+    try {
+      const storedHash = user.password_hash;
+      let matches = false;
+
+      // Support legacy seeded users where password_hash may be plain text.
+      if (typeof storedHash === 'string' && storedHash.startsWith('$2')) {
+        matches = await bcrypt.compare(currentPassword, storedHash);
+      } else {
+        matches = String(currentPassword) === String(storedHash);
+      }
+
+      if (!matches) {
+        return res.status(401).json({ message: 'Nieprawidłowe obecne hasło' });
+      }
+
+      const nextHash = await bcrypt.hash(newPassword, 10);
+      User.updatePassword(userId, nextHash, (updateErr) => {
+        if (updateErr) return res.status(500).json({ message: updateErr.message });
+        res.json({ message: 'Hasło zaktualizowane' });
+      });
+    } catch (e) {
+      res.status(500).json({ message: e.message });
+    }
+  });
+};

@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 
 const usersRoutes = require('./routes/users.routes');
@@ -14,6 +15,7 @@ const shoppingList = require('./routes/shopping_list.routes');
 
 const transactionsRoutes = require('./routes/transactions.routes');
 
+app.use(cors({ origin: true }));
 app.use(express.json()); // obsługa JSON w body request
 
 app.use('/transactions', transactionsRoutes);
